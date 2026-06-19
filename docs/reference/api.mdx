@@ -1,0 +1,33 @@
+---
+title: API Reference
+description: Full API documentation for SoftDocs
+version: [">=1.0"]
+---
+
+# API Reference
+
+## defineConfig
+
+The main configuration function.
+
+```typescript
+defineConfig(config: SoftDocsConfig): SoftDocsConfig
+```
+
+### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| title | string | Yes | Site title |
+| description | string | No | Site description |
+| theme.accent | string | No | Accent color |
+
+### Example
+
+```typescript
+defineConfig({
+  title: 'My Docs',
+  description: 'API docs',
+  theme: { accent: '#6366f1' }
+})
+```

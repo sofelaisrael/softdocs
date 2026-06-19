@@ -1,0 +1,33 @@
+---
+title: Configuration
+description: All configuration options for SoftDocs
+version: [">=1.0"]
+---
+
+# Configuration
+
+SoftDocs is configured via a `softdocs.config.ts` file at your project root.
+
+## Basic options
+
+```typescript
+import { defineConfig } from 'softdocs'
+
+export default defineConfig({
+  title: 'My Docs',
+  description: 'Documentation for my project'
+})
+```
+
+## Theme
+
+Customize the appearance:
+
+```typescript
+export default defineConfig({
+  title: 'My Docs',
+  theme: {
+    accent: '#6366f1'
+  }
+})
+```

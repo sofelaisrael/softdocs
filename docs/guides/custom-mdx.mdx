@@ -1,0 +1,33 @@
+---
+title: Custom MDX Components
+description: Build interactive components for your docs
+version: [">=1.0"]
+---
+
+# Custom MDX Components
+
+MDX lets you embed React components directly in your Markdown.
+
+## Registering components
+
+Components are registered in the MDX provider:
+
+```tsx
+import { Callout, Tabs, Steps } from 'softdocs'
+
+const components = {
+  Callout,
+  Tabs,
+  Steps,
+}
+```
+
+## Using components in MDX
+
+Once registered, use them in any `.mdx` file:
+
+```mdx
+<Callout type="info">
+  This is an info callout.
+</Callout>
+```
