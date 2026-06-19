@@ -1,5 +1,5 @@
 import { buildNavTree } from '@softdocs/core'
-import { CopyButtonHydrator, Sidebar } from '@softdocs/ui'
+import { CopyButtonHydrator, Sidebar, Search } from '@softdocs/ui'
 import Link from 'next/link'
 import path from 'path'
 import config from '../../../softdocs.config'

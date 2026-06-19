@@ -33,7 +33,7 @@ export async function pushAlgoliaIndex(
           title: doc.title,
           heading: heading.text,
           headingId: heading.id,
-          content: heading.text,
+          content: heading.content,
           lvl: (heading.depth >= 1 && heading.depth <= 3 ? heading.depth : 2) as 1 | 2 | 3,
           url: `/docs/${version}/${doc.slug.join('/')}#${heading.id}`,
         })

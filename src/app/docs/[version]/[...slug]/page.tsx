@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { buildContentIndex, resolveDocPath, parseDocFile, buildNavTree, getAdjacentDocs, rehypeCodeButton } from '@softdocs/core'
 import type { NavItem, NavSection } from '@softdocs/core'
-import { CopyButtonHydrator, ScrollSpyToc, Sidebar, ThemeToggle, MobileTocDropdown, mdxComponents, VersionPicker } from '@softdocs/ui'
+import { CopyButtonHydrator, ScrollSpyToc, Sidebar, ThemeToggle, MobileTocDropdown, mdxComponents, VersionPicker, Search } from '@softdocs/ui'
 import Link from 'next/link'
 import path from 'path'
 import config from '../../../../../softdocs.config'
@@ -118,6 +118,12 @@ export default async function DocPage({ params }: Props) {
             <Link href="/#features">Features</Link>
           </div>
           <div className="header-actions">
+            <Search
+              currentVersion={version}
+              appId={process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? ''}
+              searchApiKey={process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY ?? ''}
+              indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? ''}
+            />
             <ThemeToggle />
           </div>
         </div>

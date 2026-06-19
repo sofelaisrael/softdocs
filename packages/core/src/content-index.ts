@@ -7,6 +7,7 @@ export interface Heading {
   depth: number
   text: string
   id: string
+  content: string
 }
 
 export interface DocNode {
