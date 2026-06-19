@@ -28,6 +28,14 @@ export default function DocsOverview() {
             <Link href="/pricing">Pricing</Link>
             <Link href="/#features">Features</Link>
           </div>
+          <div className="header-actions">
+            <Search
+              currentVersion={defaultVersion}
+              appId={process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? ''}
+              searchApiKey={process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY ?? ''}
+              indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME ?? ''}
+            />
+          </div>
         </div>
       </nav>
 

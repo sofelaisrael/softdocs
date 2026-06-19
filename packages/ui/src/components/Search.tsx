@@ -25,7 +25,7 @@ function Hit({ hit }: HitProps) {
   )
 }
 
-function VersionFacet({ currentVersion }: { currentVersion: string }) {
+function VersionFacet() {
   const { items, refine } = useRefinementList({ attribute: 'version' })
 
   return (
@@ -59,7 +59,6 @@ interface SearchProps {
 
 export function Search({ currentVersion, appId, searchApiKey, indexName }: SearchProps) {
   const [open, setOpen] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
   const searchClient = useRef(appId ? liteClient(appId, searchApiKey) : null)
 
@@ -77,15 +76,18 @@ export function Search({ currentVersion, appId, searchApiKey, indexName }: Searc
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  if (!appId) return null
-
   useEffect(() => {
-    if (open && inputRef.current) {
-      inputRef.current.focus()
+    if (open) {
+      setTimeout(() => {
+        const input = document.querySelector('.search-dialog .ais-SearchBox-input') as HTMLInputElement | null
+        input?.focus()
+      }, 50)
     }
   }, [open])
 
   const close = useCallback(() => setOpen(false), [])
+
+  if (!appId) return null
 
   return (
     <>
@@ -106,7 +108,7 @@ export function Search({ currentVersion, appId, searchApiKey, indexName }: Searc
         <div className="search-overlay" ref={overlayRef} onClick={(e) => { if (e.target === overlayRef.current) close() }}>
           <div className="search-dialog">
             <InstantSearch
-              searchClient={searchClient.current}
+              searchClient={searchClient.current!}
               indexName={indexName}
               initialUiState={{
                 [indexName]: {
@@ -115,7 +117,7 @@ export function Search({ currentVersion, appId, searchApiKey, indexName }: Searc
               }}
             >
               <div className="search-dialog-header">
-                <SearchBox inputRef={inputRef} />
+                <SearchBox />
                 <button className="search-close" onClick={close} aria-label="Close search">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -123,7 +125,7 @@ export function Search({ currentVersion, appId, searchApiKey, indexName }: Searc
                   </svg>
                 </button>
               </div>
-              <VersionFacet currentVersion={currentVersion} />
+              <VersionFacet />
               <div className="search-dialog-results">
                 <Hits hitComponent={Hit} />
               </div>
