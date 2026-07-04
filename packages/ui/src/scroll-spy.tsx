@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { NavItem } from '@softdocs/core'
 
 interface ScrollSpyTocProps {
   headings: { depth: number; text: string; id: string }[]
@@ -37,20 +36,29 @@ export function ScrollSpyToc({ headings }: ScrollSpyTocProps) {
     return () => observer.disconnect()
   }, [headings])
 
+  const filteredHeadings = headings.filter((h) => h.depth <= 3)
+  if (filteredHeadings.length === 0) return null
+
   return (
-    <aside className="doc-toc">
-      <div className="toc-label">On this page</div>
-      {headings
-        .filter((h) => h.depth <= 3)
-        .map((h) => (
+    <div className="space-y-4">
+      <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">On this page</div>
+      <nav className="space-y-1 border-l">
+        {filteredHeadings.map((h) => (
           <a
             key={h.id}
             href={`#${h.id}`}
-            className={`toc-item level-${h.depth}${activeId === h.id ? ' active' : ''}`}
+            className={`block py-1 pr-4 text-xs transition-all border-l -ml-px ${
+              activeId === h.id
+                ? 'border-accent text-accent font-medium'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted'
+            } ${
+              h.depth === 2 ? 'pl-4' : h.depth === 3 ? 'pl-8' : 'pl-4'
+            }`}
           >
             {h.text}
           </a>
         ))}
-    </aside>
+      </nav>
+    </div>
   )
 }
