@@ -1,0 +1,51 @@
+---
+title: What's New in v3
+description: New features and improvements in version 3.0
+version: ["3.0"]
+---
+
+# What's New in v3
+
+Version 3.0 introduces breaking changes and new features.
+
+## Breaking changes
+
+### Config format
+
+The `versions` field in `softdocs.config.ts` is now required:
+
+```typescript
+// Before (v2)
+export default defineConfig({
+  title: "My Docs",
+});
+
+// After (v3)
+export default defineConfig({
+  title: "My Docs",
+  versions: {
+    all: ["2.0", "3.0"],
+    default: "3.0",
+    latest: "3.0",
+  },
+});
+```
+
+### Component imports
+
+MDX components are now imported from `@softdocs/ui` instead of being globally available:
+
+```tsx
+// Before (v2)
+<Callout type="info">Hello</Callout>;
+
+// After (v3)
+import { Callout } from "@softdocs/ui";
+<Callout type="info">Hello</Callout>;
+```
+
+## New features
+
+- **Version picker** — users can switch between versions seamlessly
+- **Algolia search** — zero-config search with version faceting
+- **Dark mode** — built-in theme system with CSS custom properties

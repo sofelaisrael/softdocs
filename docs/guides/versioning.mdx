@@ -1,0 +1,39 @@
+---
+title: Versioning
+description: How SoftDocs handles versioned documentation
+version: [">=2.0"]
+---
+
+# Versioning
+
+SoftDocs treats versioning as a **content property**, not a folder structure.
+
+## How it works
+
+Each doc page declares which versions it belongs to in frontmatter:
+
+```yaml
+---
+version: [">=2.0"]
+---
+```
+
+This page appears in v2 and v3. No folder copying. No file duplication.
+
+## Version ranges
+
+You can use any valid semver range:
+
+| Range               | Appears in    |
+| ------------------- | ------------- |
+| `[">=2.0"]`         | v2, v3, v4... |
+| `["3.0"]`           | v3 only       |
+| `[">=1.0", "<3.0"]` | v1, v2        |
+| `["^2.0"]`          | v2.x.x        |
+| _(omitted)_         | all versions  |
+
+## Why this matters
+
+When you ship v3, you don't copy your docs folder. You add `version: [">=3.0"]` to the pages that changed. The rest stay put.
+
+One source of truth. No sync battles.

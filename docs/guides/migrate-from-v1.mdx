@@ -1,0 +1,42 @@
+---
+title: Migration from v1
+description: How to migrate your docs from v1 to v2
+version: ["2.0"]
+---
+
+# Migration from v1
+
+This guide covers migrating from SoftDocs v1 to v2.
+
+## What changed
+
+### Config structure
+
+v2 introduced the `versions` object in config:
+
+```typescript
+// v1
+export default defineConfig({
+  title: "My Docs",
+});
+
+// v2
+export default defineConfig({
+  title: "My Docs",
+  versions: {
+    all: ["1.0", "2.0"],
+    default: "2.0",
+    latest: "2.0",
+  },
+});
+```
+
+### Version ranges in frontmatter
+
+v2 introduced version ranges. If your docs were version-agnostic in v1, they now appear in all versions automatically.
+
+## Steps
+
+1. Update `softdocs.config.ts` to include the `versions` field
+2. Add `version` frontmatter to docs that should only appear in specific versions
+3. Run `npm run build` to verify

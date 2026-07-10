@@ -30,15 +30,19 @@ export function VersionPicker({
     return () => document.removeEventListener("mousedown", onDown);
   }, []);
 
+  const availableVersions = versions.filter((v) => {
+    const slugs = versionIndex[v];
+    return slugs && slugs.includes(currentSlug);
+  });
+
+  if (availableVersions.length <= 1) {
+    return <span className="version-picker-badge">v{currentVersion}</span>;
+  }
+
   function select(v: string) {
     setOpen(false);
     if (v === currentVersion) return;
-    const targetSlugs = versionIndex[v];
-    if (targetSlugs && targetSlugs.includes(currentSlug)) {
-      router.push(`/docs/${v}/${currentSlug}`);
-    } else {
-      router.push(`/docs/${v}`);
-    }
+    router.push(`/docs/${v}/${currentSlug}`);
   }
 
   return (
@@ -59,7 +63,7 @@ export function VersionPicker({
       </button>
       {open && (
         <div className="version-picker-menu">
-          {versions.map((v) => (
+          {availableVersions.map((v) => (
             <button
               key={v}
               className={`version-picker-option${v === currentVersion ? " active" : ""}`}
