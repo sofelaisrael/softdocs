@@ -1,26 +1,44 @@
 ---
-title: Overview
-description: What SoftDocs is and how it works
-version: [">=1.0"]
+title: Getting Started
+description: Set up your first SoftDocs site
 ---
 
-# Overview
+# Getting Started
 
-Welcome to SoftDocs. This is the beginning of your documentation.
+Add SoftDocs to your project with a single command.
 
-## What is SoftDocs?
+## Installation
 
-SoftDocs is a documentation platform that turns Markdown into fast, searchable sites.
+Run the following in your terminal:
 
-## How it works
+```bash
+npm create softdocs@latest my-docs
+```
 
-1. Write content in Markdown or MDX
-2. Configure your theme and version options
-3. Deploy anywhere
+Then navigate into the project:
 
-### Key Features
+```bash
+cd my-docs && npm run dev
+```
 
-- Full-text search
-- Versioned docs
-- Custom MDX components
-- Dark mode
+## Configuration
+
+Create a `softdocs.config.ts` file:
+
+```typescript
+import { defineConfig } from "softdocs";
+
+export default defineConfig({
+  title: "My Docs",
+  description: "Documentation for my project",
+  theme: {
+    accent: "#6366f1",
+  },
+});
+```
+
+### Next Steps
+
+- Read the configuration guide
+- Explore custom components
+- Deploy your site
