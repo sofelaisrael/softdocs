@@ -534,6 +534,37 @@ h4 { font-size: 18px; }
   color: var(--ink-faint);
 }
 
+/* === Mobile TOC (hidden on desktop) === */
+.mobile-toc { display: none; }
+
+/* === Doc header === */
+.doc-header { margin-bottom: var(--space-6); }
+.doc-header-title {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.doc-header-title h1 { margin-bottom: 0; }
+.doc-meta { color: var(--ink-muted); font-size: 15px; margin-top: 0; }
+.doc-search-bar {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+/* === Breadcrumbs === */
+.doc-breadcrumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  margin-bottom: var(--space-4); font-size: 13px; color: var(--ink-faint);
+}
+.doc-breadcrumb-item { display: inline-flex; align-items: center; gap: 4px; }
+.doc-breadcrumb-item a { color: var(--ink-muted); text-decoration: none; }
+.doc-breadcrumb-item a:hover { color: var(--accent); text-decoration: underline; }
+.doc-breadcrumb-sep { color: var(--ink-faint); opacity: 0.5; }
+
+@media (max-width: 768px) {
+  .mobile-toc { display: block; margin-bottom: var(--space-4); }
+  .doc-header-title { flex-wrap: wrap; }
+}
+
 /* === Footer === */
 footer {
   border-top: 1px solid var(--line);

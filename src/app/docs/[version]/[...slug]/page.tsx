@@ -100,12 +100,22 @@ export default async function DocPage({ params }: Props) {
   const rehypeShiki = (await import("@shikijs/rehype")).default;
   const rehypeSlug = (await import("rehype-slug")).default;
 
+  function rehypeStripFirstH1() {
+    return (tree: any) => {
+      const idx = tree.children.findIndex(
+        (c: any) => c.type === "element" && c.tagName === "h1",
+      );
+      if (idx !== -1) tree.children.splice(idx, 1);
+    };
+  }
+
   const { content } = await compileMDX({
     source: doc.raw,
     options: {
       parseFrontmatter: true,
       mdxOptions: {
         rehypePlugins: [
+          rehypeStripFirstH1,
           rehypeSlug,
           [
             rehypeShiki,
@@ -129,14 +139,7 @@ export default async function DocPage({ params }: Props) {
         <Sidebar sections={nav} currentVersion={version} />
 
         <main className="doc-content">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-3)",
-              marginBottom: "var(--space-6)",
-            }}
-          >
+          <div className="doc-search-bar">
             <Search
               currentVersion={version}
               appId={process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? ""}
@@ -162,27 +165,18 @@ export default async function DocPage({ params }: Props) {
             ))}
           </nav>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-3)",
-              marginBottom: "var(--space-3)",
-            }}
-          >
-            <h1 style={{ marginBottom: 0 }}>{doc.title}</h1>
-            <VersionPicker
-              versions={config.versions.all}
-              currentVersion={version}
-              currentSlug={slugStr}
-              versionIndex={versionIndex}
-            />
-          </div>
-          {doc.description && (
-            <div className="doc-meta">
-              <span>{doc.description}</span>
+          <div className="doc-header">
+            <div className="doc-header-title">
+              <h1>{doc.title}</h1>
+              <VersionPicker
+                versions={config.versions.all}
+                currentVersion={version}
+                currentSlug={slugStr}
+                versionIndex={versionIndex}
+              />
             </div>
-          )}
+            {doc.description && <p className="doc-meta">{doc.description}</p>}
+          </div>
 
           {content}
 

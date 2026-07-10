@@ -2,13 +2,16 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Documentation pages", () => {
   test("should redirect /docs to latest version", async ({ page }) => {
-    await page.goto("/docs", { timeout: 60000 });
+    await page.goto("/docs", { timeout: 60000, waitUntil: "networkidle" });
     await page.waitForURL(/\/docs\/3\.0/, { timeout: 60000 });
     await expect(page).toHaveURL(/\/docs\/3\.0/);
   });
 
   test("should render a versioned doc page", async ({ page }) => {
-    await page.goto("/docs/3.0/configuration", { timeout: 60000 });
+    await page.goto("/docs/3.0/configuration", {
+      timeout: 60000,
+      waitUntil: "networkidle",
+    });
     await expect(page.locator("h1").first()).toBeVisible({ timeout: 60000 });
     await expect(page).toHaveURL(/\/docs\/3\.0\/configuration/);
   });
@@ -52,21 +55,21 @@ test.describe("Version switching", () => {
   });
 
   test("should navigate between versions when available", async ({ page }) => {
-    await page.goto("/docs/2.0/configuration", { timeout: 60000 });
+    await page.goto("/docs/2.0/configuration", {
+      timeout: 60000,
+      waitUntil: "networkidle",
+    });
     const picker = page.locator(".version-picker-btn");
-    if (await picker.isVisible({ timeout: 10000 })) {
-      await picker.click();
-      await page.waitForSelector(".version-picker-option", {
-        state: "visible",
-        timeout: 10000,
-      });
-      await page
-        .locator(".version-picker-option")
-        .filter({ hasText: "3.0" })
-        .click();
-      await page.waitForURL(/\/docs\/3\.0\/configuration/, { timeout: 10000 });
-      await expect(page).toHaveURL(/\/docs\/3\.0\/configuration/);
-    }
+    await expect(picker).toBeVisible({ timeout: 30000 });
+    await picker.click();
+    const menu = page.locator(".version-picker-menu");
+    await expect(menu).toBeVisible({ timeout: 5000 });
+    await page
+      .locator(".version-picker-option")
+      .filter({ hasText: "3.0" })
+      .click();
+    await page.waitForURL(/\/docs\/3\.0\/configuration/, { timeout: 30000 });
+    await expect(page).toHaveURL(/\/docs\/3\.0\/configuration/);
   });
 });
 
