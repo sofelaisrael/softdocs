@@ -1,15 +1,23 @@
-export { defineConfig, setConfig, getConfig, SoftDocsConfigSchema } from './config'
-export type { SoftDocsConfig } from './config'
-export { extractMdx } from './extract'
-export type { ExtractedDoc } from './extract'
-export { findAllDocs, resolveDocPath, parseDocFile, buildContentTree } from './docs'
-export type { DocNode, ContentTree } from './docs'
-export { buildNavTree, getAdjacentDocs } from './nav'
-export type { NavItem, NavSection } from './nav'
-export { watchDocs } from './watch'
-export type { WatchEvent, DocChange } from './watch'
-export { rehypeCodeButton } from './rehype-code-button'
-export { buildContentIndex } from './content-index'
-export { buildThemeVars } from './theme-builder'
-export { pushAlgoliaIndex } from './algolia-indexer'
-export type { DocNode as ContentIndexDocNode, ContentIndex } from './content-index'
+export { defineConfig, SoftDocsConfigSchema } from "./config";
+export type { SoftDocsConfig } from "./config";
+export { extractMdx } from "./extract";
+export type { ExtractedDoc } from "./extract";
+export {
+  findAllDocs,
+  resolveDocPath,
+  parseDocFile,
+  buildContentTree,
+} from "./docs";
+export type { DocNode, ContentTree } from "./docs";
+export { buildNavTree, getAdjacentDocs } from "./nav";
+export type { NavItem, NavSection } from "./nav";
+export { watchDocs } from "./watch";
+export type { WatchEvent, DocChange } from "./watch";
+export { rehypeCodeButton } from "./rehype-code-button";
+export { buildContentIndex } from "./content-index";
+export { buildThemeVars } from "./theme-builder";
+export { pushAlgoliaIndex } from "./algolia-indexer";
+export type {
+  DocNode as ContentIndexDocNode,
+  ContentIndex,
+} from "./content-index";

@@ -23,7 +23,8 @@
       "@softdocs/core": ["./packages/core/src"],
       "@softdocs/core/*": ["./packages/core/src/*"],
       "@softdocs/ui": ["./packages/ui/src"],
-      "@softdocs/ui/*": ["./packages/ui/src/*"]
+      "@softdocs/ui/*": ["./packages/ui/src/*"],
+      "@/softdocs.config": ["./softdocs.config"]
     }
   },
   "include": [
