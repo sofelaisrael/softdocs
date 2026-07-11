@@ -1,11 +1,43 @@
 import { z } from "zod";
 
+const themeColorsSchema = z
+  .object({
+    accent: z.string().optional(),
+    accentHover: z.string().optional(),
+    accentSoft: z.string().optional(),
+    accentBorder: z.string().optional(),
+  })
+  .optional();
+
+const themeShadowsSchema = z
+  .object({
+    card: z.string().optional(),
+    cardHover: z.string().optional(),
+    lift: z.string().optional(),
+  })
+  .optional();
+
+const themeDarkSchema = z
+  .object({
+    accent: z.string().optional(),
+    accentHover: z.string().optional(),
+    accentSoft: z.string().optional(),
+    accentBorder: z.string().optional(),
+    shadows: themeShadowsSchema,
+  })
+  .optional();
+
 export const SoftDocsConfigSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   theme: z
     .object({
       accent: z.string().optional(),
+      accentHover: z.string().optional(),
+      accentSoft: z.string().optional(),
+      accentBorder: z.string().optional(),
+      shadows: themeShadowsSchema,
+      dark: themeDarkSchema,
     })
     .optional(),
   versions: z.object({
