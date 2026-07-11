@@ -127,10 +127,8 @@ export default async function DocPage({ params }: Props) {
         ],
       },
     },
-    components: mdxComponents as Record<
-      string,
-      React.ComponentType<Record<string, unknown>>
-    >,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    components: mdxComponents as any,
   });
 
   const versionIndex: Record<string, string[]> = {};
