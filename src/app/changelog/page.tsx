@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -59,16 +60,16 @@ const entries = [
   },
 ];
 
-const tagColors: Record<string, string> = {
-  Latest: "background: var(--accent); color: #fff;",
-  LTS: "background: rgba(16,185,129,0.1); color: #059669;",
+const tagColors: Record<string, CSSProperties> = {
+  Latest: { background: "var(--accent)", color: "#fff" },
+  LTS: { background: "rgba(16,185,129,0.1)", color: "#059669" },
 };
 
-const typeColors: Record<string, string> = {
-  added: "background: rgba(59,130,246,0.1); color: #2563eb;",
-  improved: "background: rgba(16,185,129,0.1); color: #059669;",
-  fixed: "background: rgba(217,119,6,0.1); color: #b45309;",
-  removed: "background: rgba(239,68,68,0.1); color: #dc2626;",
+const typeColors: Record<string, CSSProperties> = {
+  added: { background: "rgba(59,130,246,0.1)", color: "#2563eb" },
+  improved: { background: "rgba(16,185,129,0.1)", color: "#059669" },
+  fixed: { background: "rgba(217,119,6,0.1)", color: "#b45309" },
+  removed: { background: "rgba(239,68,68,0.1)", color: "#dc2626" },
 };
 
 export default function ChangelogPage() {
