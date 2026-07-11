@@ -1,33 +1,77 @@
 ---
 title: API Reference
-description: Full API documentation for SoftDocs
+description: Full API documentation for versio
 version: [">=1.0"]
 ---
 
 # API Reference
+
+## Endpoints
+
+| Method | Endpoint        | Description           | Version |
+| ------ | --------------- | --------------------- | ------- |
+| GET    | `/api/docs`     | List all documents    | v1      |
+| GET    | `/api/docs/:id` | Get document by ID    | v1      |
+| POST   | `/api/docs`     | Create a new document | v1      |
+| PUT    | `/api/docs/:id` | Update a document     | v1      |
+| DELETE | `/api/docs/:id` | Delete a document     | v1      |
+| GET    | `/api/versions` | List all versions     | v2      |
+| POST   | `/api/search`   | Search documents      | v2      |
 
 ## defineConfig
 
 The main configuration function.
 
 ```typescript
-defineConfig(config: SoftDocsConfig): SoftDocsConfig
+defineConfig(config: VersioConfig): VersioConfig
 ```
 
 ### Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| title | string | Yes | Site title |
-| description | string | No | Site description |
-| theme.accent | string | No | Accent color |
+| Parameter        | Type                | Required | Default | Description                             |
+| ---------------- | ------------------- | -------- | ------- | --------------------------------------- |
+| title            | string              | Yes      | —       | Site title displayed in header and meta |
+| description      | string              | No       | —       | Site description for SEO                |
+| logo             | string \| ReactNode | No       | —       | Custom logo component or path           |
+| theme.accent     | string              | No       | #d85a2b | Primary accent color                    |
+| theme.dark       | ThemeConfig         | No       | —       | Dark mode color overrides               |
+| versions.all     | string[]            | Yes      | —       | Array of version strings                |
+| versions.default | string              | No       | —       | Default version for redirects           |
+| versions.latest  | string              | No       | —       | Latest version tag                      |
 
 ### Example
 
 ```typescript
 defineConfig({
-  title: 'My Docs',
-  description: 'API docs',
-  theme: { accent: '#6366f1' }
-})
+  title: "My Docs",
+  description: "API documentation",
+  versions: {
+    all: ["1.0", "2.0", "3.0"],
+    default: "2.0",
+    latest: "3.0",
+  },
+  theme: { accent: "#6366f1" },
+});
+```
+
+## Search API
+
+### search(query, options)
+
+Search through documentation content.
+
+| Parameter       | Type    | Required | Default | Description           |
+| --------------- | ------- | -------- | ------- | --------------------- |
+| query           | string  | Yes      | —       | Search query string   |
+| options.version | string  | No       | —       | Filter by version     |
+| options.limit   | number  | No       | 10      | Max results to return |
+| options.fuzzy   | boolean | No       | true    | Enable fuzzy matching |
+
+### Example
+
+```typescript
+const results = await search("versioning", {
+  version: "3.0",
+  limit: 5,
+});
 ```

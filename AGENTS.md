@@ -104,3 +104,52 @@ docs/*.mdx
 - **E2e tests:** `Playwright` — run `npx playwright test`
 - **Lint:** `npm run lint` (ESLint with next/core-web-vitals + typescript)
 - **Type check:** `npx tsc --noEmit`
+
+## Loop Workflow
+
+Every task follows the Loop engineering cycle:
+
+```
+Define → Build → Verify → Pass → Commit
+                      ↓
+                    Fail → Fix → Re-verify
+```
+
+### Steps
+
+1. **Define** — Clear task definition with acceptance criteria
+2. **Build** — Implement the solution
+3. **Verify** — Run `scripts/verify.ps1` (playwright screenshots + regression)
+4. **Pass** — If verification passes, commit changes
+5. **Fail** — If verification fails, fix issues and re-verify
+
+### Verify Script
+
+```powershell
+# Verify all pages
+node scripts/verify.js
+
+# Verify specific page
+node scripts/verify.js --page "/docs/3.0/configuration" --name "docs-config"
+```
+
+### Task Format
+
+```markdown
+## Task: [Brief description]
+
+**Acceptance criteria:**
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+**Files to modify:**
+
+- path/to/file.tsx
+
+**Verification:**
+
+- Page renders correctly
+- No console errors
+- Screenshot matches expected design
+```

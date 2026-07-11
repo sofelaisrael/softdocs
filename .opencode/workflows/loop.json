@@ -1,0 +1,29 @@
+{
+  "name": "loop",
+  "description": "Loop engineering workflow: define → build → verify → PR",
+  "steps": [
+    {
+      "name": "define",
+      "description": "Define the task clearly before coding",
+      "action": "prompt",
+      "template": "Task: {task}\n\nAcceptance criteria:\n- {criteria}\n\nFiles to modify:\n- {files}"
+    },
+    {
+      "name": "build",
+      "description": "Implement the solution",
+      "action": "code"
+    },
+    {
+      "name": "verify",
+      "description": "Run playwright tests and regression checks",
+      "action": "script",
+      "script": "scripts/verify.ps1"
+    },
+    {
+      "name": "commit",
+      "description": "Commit changes if verification passes",
+      "action": "commit",
+      "condition": "verify.passed"
+    }
+  ]
+}

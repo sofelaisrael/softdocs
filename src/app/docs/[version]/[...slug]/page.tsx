@@ -99,11 +99,12 @@ export default async function DocPage({ params }: Props) {
 
   const rehypeShiki = (await import("@shikijs/rehype")).default;
   const rehypeSlug = (await import("rehype-slug")).default;
+  const remarkGfm = (await import("remark-gfm")).default;
 
   function rehypeStripFirstH1() {
-    return (tree: any) => {
+    return (tree: { children: Array<{ type: string; tagName: string }> }) => {
       const idx = tree.children.findIndex(
-        (c: any) => c.type === "element" && c.tagName === "h1",
+        (c) => c.type === "element" && c.tagName === "h1",
       );
       if (idx !== -1) tree.children.splice(idx, 1);
     };
@@ -114,6 +115,7 @@ export default async function DocPage({ params }: Props) {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
+        remarkPlugins: [remarkGfm],
         rehypePlugins: [
           rehypeStripFirstH1,
           rehypeSlug,
@@ -125,7 +127,10 @@ export default async function DocPage({ params }: Props) {
         ],
       },
     },
-    components: mdxComponents as any,
+    components: mdxComponents as Record<
+      string,
+      React.ComponentType<Record<string, unknown>>
+    >,
   });
 
   const versionIndex: Record<string, string[]> = {};
@@ -167,7 +172,7 @@ export default async function DocPage({ params }: Props) {
 
           <div className="doc-header">
             <div className="doc-header-title">
-              <h1>{doc.title}</h1>
+              <h1 id={slugStr}>{doc.title}</h1>
               <VersionPicker
                 versions={config.versions.all}
                 currentVersion={version}

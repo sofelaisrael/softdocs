@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { ThemeToggle } from "@softdocs/ui";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export default function ComponentsPage() {
   useEffect(() => {
@@ -44,69 +45,7 @@ export default function ComponentsPage() {
 
   return (
     <>
-      <header className="site-header">
-        <div className="nav-inner">
-          <div className="nav-left">
-            <a href="/" className="nav-logo">
-              <div className="w-8 h-8 rounded-[10px] bg-[#1d1c1a] flex items-center justify-center shadow-sm">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5l6.74-6.76z" />
-                  <line x1="16" y1="8" x2="2" y2="22" />
-                  <line x1="17.5" y1="15" x2="9" y2="15" />
-                </svg>
-              </div>
-              <span>versio</span>
-              <span className="nav-logo-badge">BETA</span>
-            </a>
-            <nav className="hidden lg:flex nav-links">
-              <a href="/docs">Documentation</a>
-              <a href="/components">Components</a>
-              <a href="/pricing">Pricing</a>
-              <a href="#" className="flex items-center gap-1.5">
-                Changelog{" "}
-                <span className="text-[11px] px-1.5 py-0.5 rounded bg-sand text-ink-faint">
-                  v3.2
-                </span>
-              </a>
-            </nav>
-          </div>
-          <div className="nav-right">
-            <div className="nav-search">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-              </svg>
-              <input type="search" placeholder="Search docs..." />
-              <span className="text-[10px] text-ink-faint hidden sm:inline border border-line rounded px-1.5 py-0.5">
-                CtrlK
-              </span>
-            </div>
-            <ThemeToggle />
-            <a
-              href="#"
-              className="btn btn-primary"
-              style={{ padding: "0 16px", height: "36px", fontSize: "13.5px" }}
-            >
-              Get started
-            </a>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <div className="comp-page">
         <div className="container">
@@ -711,136 +650,7 @@ export default function ComponentsPage() {
         </div>
       </div>
 
-      <footer>
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-brand">
-              <div className="logo">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5l6.74-6.76z" />
-                  <line x1="16" y1="8" x2="2" y2="22" />
-                  <line x1="17.5" y1="15" x2="9" y2="15" />
-                </svg>
-                <span>versio</span>
-              </div>
-              <p>
-                Versioned documentation framework for developer tools. Open
-                source, MIT licensed.
-              </p>
-              <div className="footer-social">
-                <a href="#" aria-label="GitHub">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  >
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                  </svg>
-                </a>
-                <a href="#" aria-label="Discord">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                </a>
-                <a href="#" aria-label="Twitter">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  >
-                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div className="footer-col">
-              <h4>Product</h4>
-              <ul>
-                <li>
-                  <a href="/docs">Documentation</a>
-                </li>
-                <li>
-                  <a href="/components">Components</a>
-                </li>
-                <li>
-                  <a href="/pricing">Pricing</a>
-                </li>
-                <li>
-                  <a href="#">Changelog</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h4>Resources</h4>
-              <ul>
-                <li>
-                  <a href="#">Migration guide</a>
-                </li>
-                <li>
-                  <a href="#">Templates</a>
-                </li>
-                <li>
-                  <a href="#">Examples</a>
-                </li>
-                <li>
-                  <a href="#">Blog</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h4>Company</h4>
-              <ul>
-                <li>
-                  <a href="#">GitHub</a>
-                </li>
-                <li>
-                  <a href="#">Discord</a>
-                </li>
-                <li>
-                  <a href="#">Twitter</a>
-                </li>
-                <li>
-                  <a href="#">Status</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <span>
-              &copy; {new Date().getFullYear()} Versio Labs, Inc. &bull; MIT
-              Licensed
-            </span>
-            <div className="flex gap-5">
-              <a href="#">Privacy</a>
-              <a href="#">Terms</a>
-              <a href="#">Security</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

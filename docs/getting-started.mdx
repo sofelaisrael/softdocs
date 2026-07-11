@@ -1,0 +1,80 @@
+---
+title: Getting Started
+description: Get up and running with Versio in under a minute
+version: [">=1.0"]
+---
+
+Get up and running with Versio in under a minute. This guide walks you through creating your first documentation site, writing content, and deploying.
+
+## Prerequisites
+
+- **Node.js 18+** (we recommend the latest LTS version)
+- **npm 9+** (or yarn, pnpm, bun)
+
+## Create a new project
+
+Run the following in your terminal:
+
+```bash
+npm create versio@latest my-docs
+```
+
+This scaffolds a complete documentation site with sensible defaults — search, versioning, and theming already configured.
+
+## Start the dev server
+
+```bash
+cd my-docs
+npm run dev
+```
+
+Open `http://localhost:3000` and you will see your documentation site running.
+
+## Write your first doc
+
+Create a file at `docs/hello-world.mdx`:
+
+```mdx
+---
+title: Hello World
+description: Your first documentation page
+version: [">=1.0"]
+---
+
+# Hello World
+
+Welcome to your new documentation site. Edit this file and see changes instantly.
+```
+
+The page appears in your sidebar automatically — no routing configuration needed.
+
+## How versioning works
+
+Versio uses frontmatter to control which versions a page belongs to:
+
+```yaml
+---
+version: [">=2.0"] # Only versions 2.0 and above
+version: ["3.0"] # Only version 3.0
+version: ["2.0", "3.0"] # Versions 2.0 and 3.0
+---
+```
+
+When you publish a new version, pages without a matching version range are automatically filtered out. No duplicate files.
+
+## Deploy
+
+Build for production and deploy anywhere:
+
+```bash
+npm run build
+```
+
+The output is a static site you can host on Vercel, Netlify, Cloudflare Pages, or any static file server.
+
+## Next steps
+
+- [Configuration](/docs/configuration) — customize theme, versions, and search
+- [Versioning guide](/docs/guides/versioning) — deep dive into the versioning system
+- [Custom MDX](/docs/guides/custom-mdx) — add interactive components to your docs
+- [API Reference](/docs/reference/api) — programmatic access to Versio

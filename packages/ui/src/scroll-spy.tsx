@@ -1,56 +1,54 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import type { NavItem } from '@softdocs/core'
+import { useEffect, useState } from "react";
 
 interface ScrollSpyTocProps {
-  headings: { depth: number; text: string; id: string }[]
+  headings: { depth: number; text: string; id: string }[];
 }
 
 export function ScrollSpyToc({ headings }: ScrollSpyTocProps) {
-  const [activeId, setActiveId] = useState<string>('')
+  const filtered = headings.filter((h) => h.depth <= 3);
+  const [activeId, setActiveId] = useState<string>(filtered[0]?.id ?? "");
 
   useEffect(() => {
-    const visible = headings
-      .filter((h) => h.depth <= 3)
+    const elements = filtered
       .map((h) => document.getElementById(h.id))
-      .filter(Boolean) as HTMLElement[]
+      .filter(Boolean) as HTMLElement[];
 
-    if (visible.length === 0) return
+    if (elements.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-          }
+    function onScroll() {
+      const offset = 200;
+      let current = elements[0]?.id ?? "";
+
+      for (let i = 0; i < elements.length; i++) {
+        const rect = elements[i].getBoundingClientRect();
+        if (rect.top <= offset) {
+          current = elements[i].id;
         }
-      },
-      {
-        rootMargin: '-80px 0px -60% 0px',
-        threshold: 0,
       }
-    )
 
-    for (const el of visible) observer.observe(el)
+      setActiveId(current);
+    }
 
-    return () => observer.disconnect()
-  }, [headings])
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [headings, filtered]);
 
   return (
     <aside className="doc-toc">
       <div className="toc-label">On this page</div>
-      {headings
-        .filter((h) => h.depth <= 3)
-        .map((h) => (
-          <a
-            key={h.id}
-            href={`#${h.id}`}
-            className={`toc-item level-${h.depth}${activeId === h.id ? ' active' : ''}`}
-          >
-            {h.text}
-          </a>
-        ))}
+      {filtered.map((h) => (
+        <a
+          key={h.id}
+          href={`#${h.id}`}
+          className={`toc-item level-${h.depth}${activeId === h.id ? " active" : ""}`}
+        >
+          {h.text}
+        </a>
+      ))}
     </aside>
-  )
+  );
 }

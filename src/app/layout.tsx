@@ -3,7 +3,7 @@ import { buildThemeVars } from "@softdocs/core";
 import config from "@/softdocs.config";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ClientLayoutWrapper } from "./layout.client";
+import { ThemeProvider } from "./theme-provider";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -48,9 +48,17 @@ export default function RootLayout({
     >
       <head>
         <style dangerouslySetInnerHTML={{ __html: themeVars }} />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+          html:not([data-theme]) body { visibility: hidden; }
+          html[data-theme] body { visibility: visible; }
+        `,
+          }}
+        />
       </head>
       <body className={`${inter.className} ${jetbrainsMono.className}`}>
-        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
