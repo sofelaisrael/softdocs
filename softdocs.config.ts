@@ -4,7 +4,7 @@ export default defineConfig({
   title: 'SoftDocs',
   description: 'Turn Markdown into beautiful documentation',
   theme: {
-    accent: '#6366f1',
+    accent: '#d85a2b',
   },
   versions: {
     all: ['1.0', '2.0', '3.0'],
