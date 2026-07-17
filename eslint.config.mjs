@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "playwright-report/**",
     "test-results/**",
+    // Generated CLI build output
+    "packages/cli/dist/**",
   ]),
   // Custom rules
   {
@@ -25,6 +27,18 @@ const eslintConfig = defineConfig([
       // Downgrade strict Next.js rules to warnings for existing code
       "@next/next/no-html-link-for-pages": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
+      // Allow intentionally-unused args prefixed with underscore
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+    },
+  },
+  // CLI, scripts, and public assets are tooling — console output is intended.
+  {
+    files: ["packages/cli/src/**", "scripts/**", "public/**"],
+    rules: {
+      "no-console": "off",
     },
   },
 ]);

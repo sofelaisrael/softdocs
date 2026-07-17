@@ -131,8 +131,9 @@ describe("defineConfig", () => {
           latest: "",
         },
       });
-    } catch (e: any) {
-      expect(e.message).toContain("versions");
+    } catch (e) {
+      expect(e).toBeInstanceOf(Error);
+      expect((e as Error).message).toContain("versions");
     }
   });
 

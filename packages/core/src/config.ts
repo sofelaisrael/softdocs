@@ -1,14 +1,5 @@
 import { z } from "zod";
 
-const themeColorsSchema = z
-  .object({
-    accent: z.string().optional(),
-    accentHover: z.string().optional(),
-    accentSoft: z.string().optional(),
-    accentBorder: z.string().optional(),
-  })
-  .optional();
-
 const themeShadowsSchema = z
   .object({
     card: z.string().optional(),

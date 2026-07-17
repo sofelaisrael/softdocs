@@ -100,7 +100,7 @@ function runBuild() {
     execFileSync(cmd, args, { stdio: "inherit", shell: true, cwd: CWD });
     console.log("\nBuild complete. Static site exported to ./out");
   } catch (err) {
-    console.error("Build failed.");
+    console.error(`Build failed: ${err instanceof Error ? err.message : err}`);
     process.exit(1);
   }
 }

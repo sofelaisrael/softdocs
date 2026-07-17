@@ -98,7 +98,7 @@ export default function Home() {
                       <polyline points="12 5 19 12 12 19" />
                     </svg>
                   </a>
-                  <a href="/docs" className="btn btn-secondary">
+                  <Link href="/docs" className="btn btn-secondary">
                     <svg
                       width="16"
                       height="16"
@@ -114,7 +114,7 @@ export default function Home() {
                       <line x1="16" y1="17" x2="8" y2="17" />
                     </svg>
                     Read the docs
-                  </a>
+                  </Link>
                 </div>
                 <div className="hero-features animate-in animate-delay-2">
                   <span>
