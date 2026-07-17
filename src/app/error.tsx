@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Error({
   error,
   reset,
@@ -52,6 +54,18 @@ export default function Error({
         An unexpected error occurred. Try refreshing the page, or start over
         from the homepage.
       </p>
+      {error.digest && (
+        <p
+          style={{
+            color: "var(--ink-faint)",
+            fontSize: "13px",
+            marginTop: "var(--space-3)",
+            fontFamily: "var(--font-mono)",
+          }}
+        >
+          Error ID: {error.digest}
+        </p>
+      )}
       <div
         style={{
           display: "flex",
@@ -62,9 +76,9 @@ export default function Error({
         <button onClick={reset} className="btn btn-primary">
           Try again
         </button>
-        <a href="/" className="btn btn-secondary">
+        <Link href="/" className="btn btn-secondary">
           Go home
-        </a>
+        </Link>
       </div>
     </div>
   );
