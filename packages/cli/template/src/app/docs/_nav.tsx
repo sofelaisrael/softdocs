@@ -34,7 +34,7 @@ export function DocNav() {
                 strokeLinecap="round"
               />
             </svg>
-            SoftDocs
+            Versio
           </Link>
           <div className="nav-links">
             {links.map((link) => {
