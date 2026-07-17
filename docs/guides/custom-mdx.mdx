@@ -13,13 +13,13 @@ MDX lets you embed React components directly in your Markdown.
 Components are registered in the MDX provider:
 
 ```tsx
-import { Callout, Tabs, Steps } from 'softdocs'
+import { Callout, Tabs, Steps } from "versio";
 
 const components = {
   Callout,
   Tabs,
   Steps,
-}
+};
 ```
 
 ## Using components in MDX
@@ -27,7 +27,5 @@ const components = {
 Once registered, use them in any `.mdx` file:
 
 ```mdx
-<Callout type="info">
-  This is an info callout.
-</Callout>
+<Callout type="info">This is an info callout.</Callout>
 ```

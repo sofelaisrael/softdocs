@@ -1,0 +1,11 @@
+node_modules
+dist
+*.tsbuildinfo
+.DS_Store
+
+# Tests are not published with source-only packages
+__tests__
+**/__tests__/**
+*.test.ts
+*.test.tsx
+*.spec.ts

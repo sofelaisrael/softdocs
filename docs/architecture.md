@@ -1,12 +1,12 @@
 # Architecture
 
-SoftDocs is a **monorepo** that turns Markdown into beautiful documentation sites with versioning.
+Versio is a **monorepo** that turns Markdown into beautiful, versioned documentation sites.
 
 ## Monorepo Structure
 
 ```
-softdocs/
-├── src/app/              # Next.js App Router (the website)
+versio/
+├── src/app/              # Next.js App Router (the demo website)
 ├── packages/
 │   ├── core/             # Pure Node.js library (no React)
 │   ├── ui/               # React components
@@ -17,19 +17,19 @@ softdocs/
 ## Package Dependency Graph
 
 ```
-@softdocs/cli ──→ @softdocs/core ──→ zod, unified, remark-*, chokidar
-                                       └──→ algoliasearch, semver
+@versio/cli ──→ @versio/core ──→ zod, unified, remark-*, chokidar
+                                     └──→ algoliasearch, semver
 
-@softdocs/ui ──→ (peer: next, react, react-dom)
-               └──→ (imports type NavSection from @softdocs/core)
+@versio/ui ──→ (peer: next, react, react-dom)
+               └──→ (imports type NavSection from @versio/core)
 
-Root app ──→ @softdocs/core + @softdocs/ui + next, react, gsap
+Root app ──→ @versio/core + @versio/ui + next, react, gsap
 ```
 
 ### Key Design Decisions
 
-- **`@softdocs/core`** is pure Node.js — no React dependency. This keeps the content pipeline testable without a browser.
-- **`@softdocs/ui`** imports only **types** from core (no runtime code). Components are `'use client'` for Next.js hydration.
+- **`@versio/core`** is pure Node.js — no React dependency. This keeps the content pipeline testable without a browser.
+- **`@versio/ui`** imports only **types** from core (no runtime code). Components are `'use client'` for Next.js hydration.
 - **Packages use TypeScript path aliases** — no build step. Source is consumed directly via `tsconfig.json` paths.
 
 ## Content Pipeline
@@ -52,7 +52,7 @@ resolveVersions()               ← Filters versions per doc's frontmatter
   ▼
 compileMDX()                    ← next-mdx-remote/rsc (server component)
   │                               Rehype chain: rehype-slug → @shikijs/rehype → rehypeCodeButton
-  │                               Components: mdxComponents from @softdocs/ui
+  │                               Components: mdxComponents from @versio/ui
   ▼
 React Server Component          ← Rendered HTML with syntax highlighting
                                   + Sidebar + TOC + Version Picker + Search
@@ -87,7 +87,7 @@ Custom HAST plugin that wraps every `<pre><code>` block with:
 
 ## Versioning System
 
-Versions are defined in `softdocs.config.ts`:
+Versions are defined in `versio.config.ts`:
 
 ```typescript
 versions: {
@@ -122,10 +122,10 @@ versions: {
 
 ## Config System
 
-`softdocs.config.ts` is validated at build time by `defineConfig()` using Zod:
+`versio.config.ts` is validated at build time by `defineConfig()` using Zod:
 
 ```typescript
-SoftDocsConfigSchema = z.object({
+VersioConfigSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   theme: z.object({ accent: z.string().optional() }).optional(),
@@ -167,10 +167,10 @@ SoftDocsConfigSchema = z.object({
 
 ## CSS Design System
 
-`src/app/globals.css` (973 lines) defines:
+`src/app/globals.css` defines:
 
 - **CSS custom properties** for theming (`--accent`, `--paper`, `--ink`)
-- **`[data-theme="dark"]`** selector (used by `next-themes`)
+- **`[data-theme="dark"]`** selector (themed by the custom `ThemeProvider` in `src/app/theme-provider.tsx`)
 - **Design tokens**: spacing scale, border radii, shadows
 - **Typography**: `--font-display` (Fraunces), `--font-sans` (Inter), `--font-mono` (JetBrains Mono)
 - **Responsive breakpoints**: 640px, 768px, 1024px

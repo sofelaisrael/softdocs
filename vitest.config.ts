@@ -16,8 +16,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@softdocs/core": path.resolve(__dirname, "packages/core/src"),
-      "@softdocs/ui": path.resolve(__dirname, "packages/ui/src"),
+      "@versio/core": path.resolve(__dirname, "packages/core/src"),
+      "@versio/ui": path.resolve(__dirname, "packages/ui/src"),
     },
   },
 });

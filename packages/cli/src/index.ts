@@ -1,192 +1,124 @@
 #!/usr/bin/env node
 
-import { execSync, spawn } from "child_process";
+import { execFileSync, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
-import { watchDocs } from "@softdocs/core";
+import { fileURLToPath } from "url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CWD = process.cwd();
-const DOCS_DIR = path.join(CWD, "docs");
 
 function main() {
   const command = process.argv[2];
 
-  if (command === "dev") {
+  if (command === "create" || command === "init") {
+    scaffold(process.argv[3]);
+  } else if (command === "dev") {
     startDev();
   } else if (command === "build") {
     runBuild();
-  } else if (command === "create" || command === "init") {
-    scaffold();
   } else {
-    console.log(`Usage: softdocs <command>
-
-Commands:
-  create   Scaffold a new SoftDocs project in the current directory
-  dev      Start the development server with file watching
-  build    Build for production
-`);
+    printHelp();
   }
 }
 
-function scaffold() {
-  const dir = process.argv[3] || CWD;
-  const target = path.resolve(CWD, dir);
-
-  if (!fs.existsSync(target)) {
-    fs.mkdirSync(target, { recursive: true });
+function templateDir(): string {
+  const candidates = [
+    // Published package: bin ./src/index.ts, template at ./template (sibling)
+    path.join(__dirname, "..", "template"),
+    // Local dev fallback (run via tsx from repo root)
+    path.join(CWD, "packages", "cli", "template"),
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
   }
+  return candidates[0];
+}
 
-  const dirs = ["docs", "docs/guides", "docs/reference", "public"];
-  for (const d of dirs) {
-    const p = path.join(target, d);
-    if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
-  }
-
-  const files: Record<string, string> = {
-    "softdocs.config.ts": `import { defineConfig } from '@softdocs/core'
-
-export default defineConfig({
-  title: 'My Docs',
-  description: 'Beautiful documentation powered by SoftDocs',
-  theme: {
-    accent: '#6366f1',
-  },
-  versions: {
-    all: ['1.0'],
-    default: '1.0',
-    latest: '1.0',
-  },
-})
-`,
-    "docs/index.mdx": `---
-title: Welcome
-description: Get started with your new documentation site
----
-
-# Welcome to your docs
-
-This is your first documentation page. Edit or add new \`.mdx\` files in the \`docs/\` directory to build your documentation.
-
-## Getting Started
-
-SoftDocs turns Markdown into fast, searchable documentation sites. Start by editing this file or creating new ones.
-
-### Features
-
-- **Full-text search** — powered by Algolia
-- **Versioned docs** — ship multiple versions without duplication
-- **Custom MDX components** — tabs, API tables, callouts, and more
-- **Dark mode** — automatic theme switching
-- **Auto table of contents** — scroll-spying sidebar
-`,
-    "docs/guides/index.mdx": `---
-title: Guides
-description: Step-by-step guides for common tasks
----
-
-# Guides
-
-Browse the guides below to learn how to use SoftDocs effectively.
-`,
-    "docs/reference/index.mdx": `---
-title: API Reference
-description: Complete API documentation for SoftDocs
----
-
-# API Reference
-
-Reference documentation for the SoftDocs configuration and component APIs.
-`,
-    "package.json": JSON.stringify(
-      {
-        name: path.basename(target),
-        version: "0.1.0",
-        private: true,
-        scripts: {
-          dev: "next dev",
-          build: "next build",
-          start: "next start",
-          lint: "eslint",
-        },
-      },
-      null,
-      2,
-    ),
-    "tsconfig.json": JSON.stringify(
-      {
-        compilerOptions: {
-          target: "ES2017",
-          lib: ["dom", "dom.iterable", "esnext"],
-          allowJs: true,
-          skipLibCheck: true,
-          strict: true,
-          noEmit: true,
-          esModuleInterop: true,
-          module: "esnext",
-          moduleResolution: "bundler",
-          resolveJsonModule: true,
-          isolatedModules: true,
-          jsx: "react-jsx",
-          incremental: true,
-          plugins: [{ name: "next" }],
-          paths: {
-            "@/*": ["./src/*"],
-            "@softdocs/core": ["./node_modules/@softdocs/core/src"],
-            "@softdocs/ui": ["./node_modules/@softdocs/ui/src"],
-          },
-        },
-        include: ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-        exclude: ["node_modules"],
-      },
-      null,
-      2,
-    ),
-  };
-
-  for (const [file, content] of Object.entries(files)) {
-    const fp = path.join(target, file);
-    if (!fs.existsSync(fp)) {
-      fs.writeFileSync(fp, content, "utf-8");
-      console.log(`  Created ${file}`);
+function copyDir(src: string, dest: string) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const s = path.join(src, entry.name);
+    const d = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(s, d);
+    } else {
+      fs.copyFileSync(s, d);
     }
   }
+}
+
+function scaffold(targetArg?: string) {
+  const dir = targetArg || ".";
+  const target = path.resolve(CWD, dir);
+
+  if (fs.existsSync(target) && fs.readdirSync(target).length > 0) {
+    console.error(
+      `Error: target directory "${dir}" is not empty. Choose an empty directory or a new name.`,
+    );
+    process.exit(1);
+  }
+
+  const tpl = templateDir();
+  if (!fs.existsSync(tpl)) {
+    console.error(
+      "Error: template not found. Reinstall @versio/cli or run from a published package.",
+    );
+    process.exit(1);
+  }
+
+  copyDir(tpl, target);
 
   console.log(`
-SoftDocs project scaffolded in ${target}
+Versio project created in ${dir}
 
 Next steps:
   cd ${dir}
-  npm install @softdocs/core @softdocs/ui next react react-dom
-  npm run dev
+  npm install
+  npm run dev      # start the local docs server
+  npm run build    # export a static site to ./out
+
+Happy documenting!
 `);
 }
 
 function startDev() {
-  console.log("SoftDocs dev server starting...");
-
-  watchDocs(DOCS_DIR, (change) => {
-    console.log(`  [${change.event}] ${change.slug}`);
-  });
-
   const nextBin = path.join(CWD, "node_modules", ".bin", "next");
-  try {
-    const child = spawn(nextBin || "npx", ["next", "dev"], {
-      stdio: "inherit",
-      shell: true,
-      cwd: CWD,
-    });
-    process.on("SIGINT", () => {
-      child.kill();
-      process.exit(0);
-    });
-  } catch {
-    console.log("Starting Next.js dev server...");
-    execSync("npx next dev", { stdio: "inherit", cwd: CWD });
-  }
+  const cmd = fs.existsSync(nextBin) ? nextBin : "npx";
+  const args = fs.existsSync(nextBin) ? ["dev"] : ["next", "dev"];
+  console.log("Versio dev server starting...");
+  const child = spawn(cmd, args, { stdio: "inherit", shell: true, cwd: CWD });
+  child.on("exit", (code) => process.exit(code ?? 0));
 }
 
 function runBuild() {
-  execSync("npx next build", { stdio: "inherit", cwd: CWD });
+  console.log("Building static documentation site...");
+  const nextBin = path.join(CWD, "node_modules", ".bin", "next");
+  const cmd = fs.existsSync(nextBin) ? nextBin : "npx";
+  const args = fs.existsSync(nextBin) ? ["build"] : ["next", "build"];
+  try {
+    execFileSync(cmd, args, { stdio: "inherit", shell: true, cwd: CWD });
+    console.log("\nBuild complete. Static site exported to ./out");
+  } catch (err) {
+    console.error(`Build failed: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  }
+}
+
+function printHelp() {
+  console.log(`versio <command>
+
+A batteries-included documentation framework with first-class versioning.
+
+Commands:
+  create [dir]   Scaffold a new Versio project (defaults to current directory)
+  dev           Start the development server
+  build         Export a static documentation site to ./out
+
+Example:
+  npx create-versio@latest my-docs
+  cd my-docs && npm install && npm run dev
+`);
 }
 
 main();

@@ -12,7 +12,7 @@ Version 3.0 introduces breaking changes and new features.
 
 ### Config format
 
-The `versions` field in `softdocs.config.ts` is now required:
+The `versions` field in `versio.config.ts` is now required:
 
 ```typescript
 // Before (v2)
@@ -33,14 +33,14 @@ export default defineConfig({
 
 ### Component imports
 
-MDX components are now imported from `@softdocs/ui` instead of being globally available:
+MDX components are now imported from `@versio/ui` instead of being globally available:
 
 ```tsx
 // Before (v2)
 <Callout type="info">Hello</Callout>;
 
 // After (v3)
-import { Callout } from "@softdocs/ui";
+import { Callout } from "@versio/ui";
 <Callout type="info">Hello</Callout>;
 ```
 

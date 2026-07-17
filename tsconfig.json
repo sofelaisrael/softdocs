@@ -20,11 +20,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@softdocs/core": ["./packages/core/src"],
-      "@softdocs/core/*": ["./packages/core/src/*"],
-      "@softdocs/ui": ["./packages/ui/src"],
-      "@softdocs/ui/*": ["./packages/ui/src/*"],
-      "@/softdocs.config": ["./softdocs.config"]
+      "@versio/core": ["./packages/core/src"],
+      "@versio/core/*": ["./packages/core/src/*"],
+      "@versio/ui": ["./packages/ui/src"],
+      "@versio/ui/*": ["./packages/ui/src/*"],
+      "@/versio.config": ["./versio.config"]
     }
   },
   "include": [

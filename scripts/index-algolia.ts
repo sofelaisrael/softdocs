@@ -1,4 +1,4 @@
-import { pushAlgoliaIndex } from "@softdocs/core";
+import { pushAlgoliaIndex } from "@versio/core";
 import path from "path";
 
 const DOCS_DIR = path.resolve(process.cwd(), "docs");
@@ -25,7 +25,10 @@ async function main() {
   console.log(`Versions: ${ALL_VERSIONS.join(", ")}`);
   console.log(`Algolia: ${searchConfig.indexName}`);
 
-  await pushAlgoliaIndex(DOCS_DIR, ALL_VERSIONS, searchConfig);
+  const count = await pushAlgoliaIndex(DOCS_DIR, ALL_VERSIONS, searchConfig);
+  console.log(
+    `Indexed ${count} records to Algolia (${searchConfig.indexName})`,
+  );
 }
 
 main().catch(console.error);

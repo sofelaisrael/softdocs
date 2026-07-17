@@ -1,23 +1,34 @@
-# SoftDocs — Agent Guide
+# Versio — Agent Guide
 
-> Turn Markdown into beautiful, searchable documentation sites with first-class versioning.
+> A batteries-included, Docusaurus-style documentation generator. Turn Markdown into beautiful, searchable, **versioned** static documentation sites.
+
+## Project Identity
+
+- **Product name:** Versio
+- **Packages:** `@versio/core` (pure Node), `@versio/ui` (React/Next), `@versio/cli` (scaffold + dev/build)
+- **Config file:** `versio.config.ts` at project root
+- **CLI bins:** `versio` and `create-versio`
 
 ## Project Tree
 
 ```
-softdocs/
-├── softdocs.config.ts          # Project config (title, versions, theme, search)
-├── src/
+versio/
+├── versio.config.ts            # Project config (title, versions, theme, search)
+├── src/                        # Canonical demo app — SINGLE SOURCE for app code
 │   ├── app/                    # Next.js App Router pages
-│   │   ├── layout.tsx          # Root layout (fonts, theme vars)
+│   │   ├── layout.tsx          # Root layout (fonts, theme vars, ThemeProvider)
 │   │   ├── page.tsx            # Marketing homepage
-│   │   ├── pricing/page.tsx    # Pricing page
-│   │   ├── components/page.tsx # Component showcase
+│   │   ├── error.tsx           # Error boundary
+│   │   ├── not-found.tsx
+│   │   ├── changelog/page.tsx
 │   │   └── docs/               # Documentation section
 │   │       ├── [version]/[...slug]/page.tsx  # Main doc renderer (MDX)
-│   │       └── [...slug]/page.tsx            # Unversioned redirect
-│   ├── lib/motion.ts           # GSAP animations (unused — remove)
-│   └── proxy.ts                # Redirect logic (unused — remove)
+│   │       ├── layout.tsx
+│   │       ├── page.tsx
+│   │       ├── _nav.tsx
+│   │       └── not-found.tsx
+│   ├── components/             # Navbar, Footer, BackToTop, ScrollReveal
+│   └── app/theme-provider.tsx  # Custom theme provider (data-theme)
 ├── packages/
 │   ├── core/src/               # Core library (zero React dep)
 │   │   ├── config.ts           # Zod-validated config + defineConfig
@@ -39,13 +50,20 @@ softdocs/
 │   │   ├── copy-button.tsx     # Code copy button hydrator
 │   │   ├── mdx-components.tsx  # MDX components (Callout, Steps, Tabs)
 │   │   └── components/         # Search, CodeBlock, APITable
-│   └── cli/src/                # CLI (dev, build, create commands)
-├── docs/                       # MDX documentation content
-│   ├── index.mdx
-│   ├── installation.mdx
-│   ├── configuration.mdx
-│   ├── guides/
-│   └── reference/
+│   └── cli/                    # CLI (dev, build, create commands)
+│       ├── src/index.ts        # versio + create-versio entry
+│       └── template/           # Scaffold copied into new projects
+│           ├── src/            # MIRRORED from root src/ via `npm run sync:template`
+│           ├── package.json
+│           ├── next.config.ts
+│           ├── tsconfig.json
+│           └── versio.config.ts
+├── docs/                       # MDX documentation content (this site)
+├── scripts/
+│   ├── verify.js               # Screenshot/regression verification
+│   ├── release.mjs             # Publish core→ui→cli in order
+│   └── sync-template.mjs       # Mirror root src/ → cli template src/
+├── e2e/                        # Playwright specs (docs, navigation, search)
 └── public/                     # Static assets
 ```
 
@@ -59,18 +77,19 @@ softdocs/
 6. **No dead code** — if it's not used, remove it.
 7. **Version-aware** — all doc pages must handle version routing.
 8. **Client/Server split** — UI components are `'use client'`, doc pages are server components.
+9. **Single source for app code** — edit `src/` only; run `npm run sync:template` before committing CLI changes so `packages/cli/template/src` stays in sync.
 
 ## Package Dependency Graph
 
 ```
-@softdocs/cli  →  @softdocs/core  →  zod, unified, remark-*, chokidar
-@softdocs/ui   →  (peer: next, react, react-dom)
-                 →  (imports type NavSection from @softdocs/core)
-Root app       →  @softdocs/core + @softdocs/ui + next, react, gsap
+@versio/cli  →  @versio/core  →  zod, unified, remark-*, chokidar
+@versio/ui   →  (peer: next, react, react-dom)
+               →  (imports type NavSection from @versio/core)
+Root app     →  @versio/core + @versio/ui + next, react
 ```
 
-- `@softdocs/core` is pure Node.js — no React dependency.
-- `@softdocs/ui` imports only types from core, no runtime code.
+- `@versio/core` is pure Node.js — no React dependency.
+- `@versio/ui` imports only types from core, no runtime code.
 - Packages use TypeScript path aliases (no build step, source-only).
 
 ## Where to Look
@@ -83,10 +102,10 @@ Root app       →  @softdocs/core + @softdocs/ui + next, react, gsap
 | Add a new doc page      | Create `.mdx` in `docs/`                                                         |
 | Modify navigation       | `packages/core/src/nav.ts`                                                       |
 | Change versioning logic | `packages/core/src/version-resolver.ts`                                          |
-| Update theme/CSS        | `src/app/globals.css` (973 lines)                                                |
+| Update theme/CSS        | `src/app/globals.css`                                                            |
 | Add search features     | `packages/ui/src/components/Search.tsx` + `packages/core/src/algolia-indexer.ts` |
 | Modify CLI commands     | `packages/cli/src/index.ts`                                                      |
-| Add animations          | `src/lib/motion.ts` (currently unused)                                           |
+| Sync CLI template       | `npm run sync:template` (mirrors `src/` → `packages/cli/template/src`)           |
 
 ## Content Pipeline
 
@@ -101,7 +120,7 @@ docs/*.mdx
 ## Testing
 
 - **Unit tests:** `vitest` — run `npm test`
-- **E2e tests:** `Playwright` — run `npx playwright test`
+- **E2e tests:** `Playwright` — run `npm run test:e2e`
 - **Lint:** `npm run lint` (ESLint with next/core-web-vitals + typescript)
 - **Type check:** `npx tsc --noEmit`
 
@@ -119,13 +138,13 @@ Define → Build → Verify → Pass → Commit
 
 1. **Define** — Clear task definition with acceptance criteria
 2. **Build** — Implement the solution
-3. **Verify** — Run `scripts/verify.ps1` (playwright screenshots + regression)
+3. **Verify** — Run `node scripts/verify.js` (screenshot + regression)
 4. **Pass** — If verification passes, commit changes
 5. **Fail** — If verification fails, fix issues and re-verify
 
 ### Verify Script
 
-```powershell
+```bash
 # Verify all pages
 node scripts/verify.js
 

@@ -118,7 +118,7 @@ describe("defineConfig", () => {
           latest: "",
         },
       }),
-    ).toThrow("Invalid softdocs config");
+    ).toThrow("Invalid versio config");
   });
 
   it("should include field path in error message", () => {
@@ -131,8 +131,9 @@ describe("defineConfig", () => {
           latest: "",
         },
       });
-    } catch (e: any) {
-      expect(e.message).toContain("versions");
+    } catch (e) {
+      expect(e).toBeInstanceOf(Error);
+      expect((e as Error).message).toContain("versions");
     }
   });
 

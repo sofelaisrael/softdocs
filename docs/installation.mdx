@@ -1,9 +1,9 @@
 ---
 title: Installation
-description: Add SoftDocs to your project with a single command
+description: Add Versio to your project with a single command
 ---
 
-Add SoftDocs to your project with a single command. The CLI scaffolds a complete documentation site with sensible defaults — zero-config search, version routing, and theme compilation.
+Add Versio to your project with a single command. The CLI scaffolds a complete documentation site with sensible defaults — zero-config search, version routing, and theme compilation.
 
 ## Quick start
 
@@ -11,7 +11,7 @@ Run the following in your terminal to create a new documentation site:
 
 ```bash
 # Create a new documentation site
-npm create softdocs@latest my-docs
+npm create versio@latest my-docs
 
 # Navigate into the project
 cd my-docs
@@ -22,32 +22,32 @@ npm run dev
 
 That's it. Open `http://localhost:3000` and you will see your documentation site running with the default theme, search indexing, and version routing already configured.
 
-> **Prerequisites:** Node.js 18+ and npm 9+. SoftDocs works with any package manager — npm, yarn, pnpm, bun.
+> **Prerequisites:** Node.js 18+ and npm 9+. Versio works with any package manager — npm, yarn, pnpm, bun.
 
 ## Manual setup
 
-If you prefer to add SoftDocs to an existing project, install the package directly:
+If you prefer to add Versio to an existing project, install the package directly:
 
 ```bash
 # Install the package
-npm install softdocs
+npm install @versio/core @versio/ui
 
 # Initialize in your project
-npx softdocs init
+npx versio init
 ```
 
-The `init` command creates a `softdocs.config.ts` file in your project root and a `docs/` directory with a sample document. You can configure everything from the config file:
+The `init` command creates a `versio.config.ts` file in your project root and a `docs/` directory with a sample document. You can configure everything from the config file:
 
 ```typescript
-import { defineConfig } from 'softdocs'
+import { defineConfig } from "@versio/core";
 
 export default defineConfig({
-  title: 'My Docs',
-  description: 'Documentation for my project',
+  title: "My Docs",
+  description: "Documentation for my project",
   theme: {
-    accent: '#3b82f6'
-  }
-})
+    accent: "#3b82f6",
+  },
+});
 ```
 
 ## Directory structure
@@ -67,7 +67,7 @@ my-docs/
 │   └── index.md
 ├── public/
 │   └── logo.svg
-├── softdocs.config.ts
+├── versio.config.ts
 ├── package.json
 └── README.md
 ```
@@ -81,13 +81,13 @@ Create a file at `docs/getting-started/overview.md`:
 ```markdown
 ---
 title: Overview
-description: What SoftDocs does and how it works
+description: What Versio does and how it works
 version: [">=2.0"]
 ---
 
 # Overview
 
-SoftDocs is a documentation platform that turns Markdown into fast, searchable sites.
+Versio is a documentation platform that turns Markdown into fast, searchable sites.
 
 ## How it works
 
@@ -95,12 +95,12 @@ SoftDocs is a documentation platform that turns Markdown into fast, searchable s
 2. Configure your theme and version options
 3. Deploy anywhere — Vercel, Netlify, or static export
 
-> SoftDocs handles search indexing, version routing, and theme compilation automatically.
+> Versio handles search indexing, version routing, and theme compilation automatically.
 ```
 
-The frontmatter block at the top controls metadata: title, description, version range, and more. SoftDocs uses this to generate the table of contents, search index, and version diff highlighting.
+The frontmatter block at the top controls metadata: title, description, version range, and more. Versio uses this to generate the table of contents, search index, and version diff highlighting.
 
-> **Tip:** Use the `version` field to control which versions of your docs a page belongs to. SoftDocs automatically filters pages by version — no duplicate files needed.
+> **Tip:** Use the `version` field to control which versions of your docs a page belongs to. Versio automatically filters pages by version — no duplicate files needed.
 
 ## Next steps
 
@@ -121,10 +121,10 @@ See the full [CLI reference](#) for all available commands and flags.
 
 ---
 
-| Command | Description |
-|---------|-------------|
-| `npm create softdocs@latest` | Scaffold a new documentation site |
-| `npx softdocs init` | Add SoftDocs to an existing project |
-| `npm run dev` | Start the development server |
-| `npm run build` | Build for production (static export) |
-| `npx softdocs version` | Create a new version snapshot |
+| Command                    | Description                          |
+| -------------------------- | ------------------------------------ |
+| `npm create versio@latest` | Scaffold a new documentation site    |
+| `npx versio init`          | Add Versio to an existing project    |
+| `npm run dev`              | Start the development server         |
+| `npm run build`            | Build for production (static export) |
+| `npx versio version`       | Create a new version snapshot        |

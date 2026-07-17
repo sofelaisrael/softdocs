@@ -1,14 +1,5 @@
 import { z } from "zod";
 
-const themeColorsSchema = z
-  .object({
-    accent: z.string().optional(),
-    accentHover: z.string().optional(),
-    accentSoft: z.string().optional(),
-    accentBorder: z.string().optional(),
-  })
-  .optional();
-
 const themeShadowsSchema = z
   .object({
     card: z.string().optional(),
@@ -63,7 +54,7 @@ export function defineConfig(config: SoftDocsConfig): SoftDocsConfig {
     const issues = result.error.issues.map(
       (i) => `  ${i.path.join(".")}: ${i.message}`,
     );
-    throw new Error(`Invalid softdocs config:\n${issues.join("\n")}`);
+    throw new Error(`Invalid versio config:\n${issues.join("\n")}`);
   }
   return result.data;
 }

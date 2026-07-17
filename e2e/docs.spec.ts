@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Documentation pages", () => {
   test("should redirect /docs to latest version", async ({ page }) => {
-    await page.goto("/docs", { timeout: 60000, waitUntil: "networkidle" });
+    await page.goto("/docs", { timeout: 60000, waitUntil: "domcontentloaded" });
     await page.waitForURL(/\/docs\/3\.0/, { timeout: 60000 });
     await expect(page).toHaveURL(/\/docs\/3\.0/);
   });
@@ -10,7 +10,7 @@ test.describe("Documentation pages", () => {
   test("should render a versioned doc page", async ({ page }) => {
     await page.goto("/docs/3.0/configuration", {
       timeout: 60000,
-      waitUntil: "networkidle",
+      waitUntil: "domcontentloaded",
     });
     await expect(page.locator("h1").first()).toBeVisible({ timeout: 60000 });
     await expect(page).toHaveURL(/\/docs\/3\.0\/configuration/);
@@ -57,7 +57,7 @@ test.describe("Version switching", () => {
   test("should navigate between versions when available", async ({ page }) => {
     await page.goto("/docs/2.0/configuration", {
       timeout: 60000,
-      waitUntil: "networkidle",
+      waitUntil: "domcontentloaded",
     });
     const picker = page.locator(".version-picker-btn");
     await expect(picker).toBeVisible({ timeout: 30000 });

@@ -70,4 +70,47 @@ describe("resolveVersions", () => {
     const result = resolveVersions(["1.0"], ["1.0"]);
     expect(result).toEqual(["1.0"]);
   });
+
+  it("should match all versions for the wildcard range", () => {
+    const result = resolveVersions(["*"], allVersions);
+    expect(result).toEqual(allVersions);
+  });
+
+  it("should respect an AND range (space-separated comparator set)", () => {
+    const result = resolveVersions([">=2.0 <3.0"], allVersions);
+    expect(result).toEqual(["2.0"]);
+  });
+
+  it("should treat exclusive > as excluding the boundary", () => {
+    const result = resolveVersions([">2.0"], allVersions);
+    expect(result).toEqual(["3.0"]);
+  });
+
+  it("should coerce a leading-v version string", () => {
+    const result = resolveVersions([">=2.0"], ["v1.0", "v2.0", "v3.0"]);
+    expect(result).toEqual(["v2.0", "v3.0"]);
+  });
+
+  it("should return all versions when at least one range is the wildcard", () => {
+    const result = resolveVersions([">=5.0", "*"], allVersions);
+    expect(result).toEqual(allVersions);
+  });
+
+  it("should dedupe overlapping ranges (union, no repeats)", () => {
+    const versions = ["1.5", "2.0", "3.0"];
+    const result = resolveVersions([">=2.0", "1.5"], versions);
+    expect(result).toEqual(["1.5", "2.0", "3.0"]);
+  });
+
+  it("should handle prerelease versions via coercion", () => {
+    const versions = ["1.0.0", "2.0.0-beta.1", "2.0.0", "3.0.0"];
+    const result = resolveVersions([">=2.0.0"], versions);
+    expect(result).toEqual(["2.0.0-beta.1", "2.0.0", "3.0.0"]);
+  });
+
+  it("should preserve the original ordering of allVersions", () => {
+    const unordered = ["3.0", "1.0", "2.0"];
+    const result = resolveVersions([">=2.0"], unordered);
+    expect(result).toEqual(["3.0", "2.0"]);
+  });
 });
