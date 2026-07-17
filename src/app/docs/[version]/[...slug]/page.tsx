@@ -7,8 +7,8 @@ import {
   buildNavTree,
   getAdjacentDocs,
   rehypeCodeButton,
-} from "@softdocs/core";
-import type { NavItem, NavSection } from "@softdocs/core";
+} from "@versio/core";
+import type { NavItem, NavSection } from "@versio/core";
 import {
   CopyButtonHydrator,
   ScrollSpyToc,
@@ -17,10 +17,10 @@ import {
   mdxComponents,
   VersionPicker,
   Search,
-} from "@softdocs/ui";
+} from "@versio/ui";
 import Link from "next/link";
 import path from "path";
-import config from "@/softdocs.config";
+import config from "@/versio.config";
 
 const DOCS_DIR = path.resolve(process.cwd(), "docs");
 

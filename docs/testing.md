@@ -1,8 +1,8 @@
 # Testing
 
-SoftDocs uses two layers of testing:
+Versio uses two layers of testing:
 
-- **Unit tests** (vitest) — test individual functions in `@softdocs/core`
+- **Unit tests** (vitest) — test individual functions in `@versio/core`
 - **E2e tests** (Playwright) — test the running app in a real browser
 
 ## Quick Commands

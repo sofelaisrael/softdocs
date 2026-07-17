@@ -1,5 +1,5 @@
 {
-  "name": "@softdocs/ui",
+  "name": "@versio/ui",
   "version": "0.1.0",
   "description": "React/Next.js UI components for Versio documentation sites — sidebar, scroll-spy TOC, version picker, MDX components, and more.",
   "type": "module",

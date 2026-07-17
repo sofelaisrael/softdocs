@@ -1,4 +1,4 @@
-import { defineConfig } from "@softdocs/core";
+import { defineConfig } from "@versio/core";
 
 export default defineConfig({
   title: "My Docs",

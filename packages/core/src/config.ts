@@ -54,7 +54,7 @@ export function defineConfig(config: SoftDocsConfig): SoftDocsConfig {
     const issues = result.error.issues.map(
       (i) => `  ${i.path.join(".")}: ${i.message}`,
     );
-    throw new Error(`Invalid softdocs config:\n${issues.join("\n")}`);
+    throw new Error(`Invalid versio config:\n${issues.join("\n")}`);
   }
   return result.data;
 }

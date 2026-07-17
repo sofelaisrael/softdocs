@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { buildThemeVars } from "@softdocs/core";
-import config from "@/softdocs.config";
+import { buildThemeVars } from "@versio/core";
+import config from "@/versio.config";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./theme-provider";

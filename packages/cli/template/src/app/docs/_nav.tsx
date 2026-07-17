@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ThemeToggle } from "@softdocs/ui";
+import { ThemeToggle } from "@versio/ui";
 
 const links = [
   { href: "/", label: "Home" },
@@ -34,7 +34,7 @@ export function DocNav() {
                 strokeLinecap="round"
               />
             </svg>
-            Versio
+            SoftDocs
           </Link>
           <div className="nav-links">
             {links.map((link) => {

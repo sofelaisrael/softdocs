@@ -1,5 +1,5 @@
 {
-  "name": "@softdocs/cli",
+  "name": "@versio/cli",
   "version": "0.1.0",
   "description": "CLI for Versio — a versioned documentation framework. Scaffold, develop, and export static docs sites.",
   "type": "module",

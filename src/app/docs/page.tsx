@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { buildContentIndex } from "@softdocs/core";
+import { buildContentIndex } from "@versio/core";
 import path from "path";
-import config from "@/softdocs.config";
+import config from "@/versio.config";
 
 const DOCS_DIR = path.resolve(process.cwd(), "docs");
 

@@ -303,16 +303,16 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Trusted by */}
+              {/* Open source cred */}
               <div className="trusted-row">
                 <span className="trusted-label">
-                  Trusted by product teams at
+                  Open source &amp; framework-native
                 </span>
-                <span className="trusted-item">Northwind</span>
-                <span className="trusted-item">Loomcraft</span>
-                <span className="trusted-item">Basin</span>
-                <span className="trusted-item">Tessellate</span>
-                <span className="trusted-item">Cedar &amp; Oak</span>
+                <span className="trusted-item">MIT licensed</span>
+                <span className="trusted-item">MDX &amp; Markdown</span>
+                <span className="trusted-item">Next.js export</span>
+                <span className="trusted-item">Algolia or local search</span>
+                <span className="trusted-item">No vendor lock-in</span>
               </div>
             </div>
           </div>

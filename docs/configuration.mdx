@@ -1,22 +1,22 @@
 ---
 title: Configuration
-description: All configuration options for SoftDocs
+description: All configuration options for Versio
 version: [">=1.0"]
 ---
 
 # Configuration
 
-SoftDocs is configured via a `softdocs.config.ts` file at your project root.
+Versio is configured via a `versio.config.ts` file at your project root.
 
 ## Basic options
 
 ```typescript
-import { defineConfig } from 'softdocs'
+import { defineConfig } from "@versio/core";
 
 export default defineConfig({
-  title: 'My Docs',
-  description: 'Documentation for my project'
-})
+  title: "My Docs",
+  description: "Documentation for my project",
+});
 ```
 
 ## Theme
@@ -25,9 +25,9 @@ Customize the appearance:
 
 ```typescript
 export default defineConfig({
-  title: 'My Docs',
+  title: "My Docs",
   theme: {
-    accent: '#6366f1'
-  }
-})
+    accent: "#6366f1",
+  },
+});
 ```

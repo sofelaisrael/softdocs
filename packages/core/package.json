@@ -1,5 +1,5 @@
 {
-  "name": "@softdocs/core",
+  "name": "@versio/core",
   "version": "0.1.0",
   "description": "Core library for Versio — MDX parsing, versioned content indexing, navigation, and theme building. Zero React dependency.",
   "type": "module",
