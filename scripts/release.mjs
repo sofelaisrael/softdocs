@@ -5,12 +5,14 @@ import { readFileSync } from "node:fs";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 
-// Packages published in dependency order: core -> ui -> cli.
+// Packages published in dependency order: core -> ui -> cli -> create-versio.
 // core/ui are source-only (published as-is); cli is compiled first.
+// create-versio is the thin unscoped wrapper that delegates to @sofelaisrael/cli.
 const steps = [
   { name: "@sofelaisrael/core", cwd: "packages/core", build: false },
   { name: "@sofelaisrael/ui", cwd: "packages/ui", build: false },
   { name: "@sofelaisrael/cli", cwd: "packages/cli", build: true },
+  { name: "create-versio", cwd: "packages/create-versio", build: false },
 ];
 
 function run(cmd, args, cwd) {
