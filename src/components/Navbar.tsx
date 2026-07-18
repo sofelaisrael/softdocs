@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "@versio/ui";
+import { ThemeToggle } from "@sofelaisrael/ui";
 
 export function Navbar() {
   return (

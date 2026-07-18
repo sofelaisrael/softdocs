@@ -7,8 +7,8 @@ import {
   buildNavTree,
   getAdjacentDocs,
   rehypeCodeButton,
-} from "@versio/core";
-import type { NavItem, NavSection } from "@versio/core";
+} from "@sofelaisrael/core";
+import type { NavItem, NavSection } from "@sofelaisrael/core";
 import {
   CopyButtonHydrator,
   ScrollSpyToc,
@@ -17,7 +17,7 @@ import {
   mdxComponents,
   VersionPicker,
   Search,
-} from "@versio/ui";
+} from "@sofelaisrael/ui";
 import Link from "next/link";
 import path from "path";
 import config from "@/versio.config";

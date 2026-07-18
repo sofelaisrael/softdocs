@@ -16,8 +16,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@versio/core": path.resolve(__dirname, "packages/core/src"),
-      "@versio/ui": path.resolve(__dirname, "packages/ui/src"),
+      "@sofelaisrael/core": path.resolve(__dirname, "packages/core/src"),
+      "@sofelaisrael/ui": path.resolve(__dirname, "packages/ui/src"),
     },
   },
 });

@@ -1,0 +1,19 @@
+{
+  "name": "create-versio",
+  "version": "0.1.1",
+  "description": "Scaffold a new Versio documentation site. Wrapper around @sofelaisrael/cli.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "create-versio": "./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

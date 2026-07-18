@@ -20,10 +20,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@versio/core": ["./packages/core/src"],
-      "@versio/core/*": ["./packages/core/src/*"],
-      "@versio/ui": ["./packages/ui/src"],
-      "@versio/ui/*": ["./packages/ui/src/*"],
+      "@sofelaisrael/core": ["./packages/core/src"],
+      "@sofelaisrael/core/*": ["./packages/core/src/*"],
+      "@sofelaisrael/ui": ["./packages/ui/src"],
+      "@sofelaisrael/ui/*": ["./packages/ui/src/*"],
       "@/versio.config": ["./versio.config"]
     }
   },

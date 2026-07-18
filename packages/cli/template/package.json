@@ -7,8 +7,8 @@
     "build": "versio build"
   },
   "dependencies": {
-    "@versio/core": "^0.1.0",
-    "@versio/ui": "^0.1.0",
+    "@sofelaisrael/core": "^0.1.0",
+    "@sofelaisrael/ui": "^0.1.0",
     "@shikijs/rehype": "^4.2.0",
     "next": "16.2.7",
     "next-mdx-remote": "^6.0.0",

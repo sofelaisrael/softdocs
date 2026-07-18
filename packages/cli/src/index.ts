@@ -62,7 +62,7 @@ function scaffold(targetArg?: string) {
   const tpl = templateDir();
   if (!fs.existsSync(tpl)) {
     console.error(
-      "Error: template not found. Reinstall @versio/cli or run from a published package.",
+      "Error: template not found. Reinstall @sofelaisrael/cli or run from a published package.",
     );
     process.exit(1);
   }
