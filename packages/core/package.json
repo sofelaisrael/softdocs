@@ -1,9 +1,12 @@
 {
-  "name": "@versio/core",
+  "name": "@sofelaisrael/core",
   "version": "0.1.0",
   "description": "Core library for Versio — MDX parsing, versioned content indexing, navigation, and theme building. Zero React dependency.",
   "type": "module",
   "license": "MIT",
+  "files": [
+    "src"
+  ],
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {

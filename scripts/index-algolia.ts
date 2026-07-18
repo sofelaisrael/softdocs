@@ -1,4 +1,4 @@
-import { pushAlgoliaIndex } from "@versio/core";
+import { pushAlgoliaIndex } from "@sofelaisrael/core";
 import path from "path";
 
 const DOCS_DIR = path.resolve(process.cwd(), "docs");

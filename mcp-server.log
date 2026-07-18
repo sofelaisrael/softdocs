@@ -1,0 +1,10 @@
+{"level":"info","message":"Starting React Bits MCP Server...","service":"react-bits-mcp-server","timestamp":"2026-07-17T18:25:12.997Z"}
+{"level":"info","message":"Setting up request handlers...","service":"react-bits-mcp-server","timestamp":"2026-07-17T18:25:13.017Z"}
+{"level":"info","message":"Handlers setup complete","service":"react-bits-mcp-server","timestamp":"2026-07-17T18:25:13.018Z"}
+{"level":"info","message":"Transport initialized: stdio","service":"react-bits-mcp-server","timestamp":"2026-07-17T18:25:13.019Z"}
+{"level":"info","message":"Server started successfully","service":"react-bits-mcp-server","timestamp":"2026-07-17T18:25:13.020Z"}
+{"level":"info","message":"Starting React Bits MCP Server...","service":"react-bits-mcp-server","timestamp":"2026-07-17T23:27:26.229Z"}
+{"level":"info","message":"Setting up request handlers...","service":"react-bits-mcp-server","timestamp":"2026-07-17T23:27:26.266Z"}
+{"level":"info","message":"Handlers setup complete","service":"react-bits-mcp-server","timestamp":"2026-07-17T23:27:26.267Z"}
+{"level":"info","message":"Transport initialized: stdio","service":"react-bits-mcp-server","timestamp":"2026-07-17T23:27:26.268Z"}
+{"level":"info","message":"Server started successfully","service":"react-bits-mcp-server","timestamp":"2026-07-17T23:27:26.269Z"}

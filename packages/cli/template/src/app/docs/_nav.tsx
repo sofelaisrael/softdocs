@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ThemeToggle } from "@versio/ui";
+import { ThemeToggle } from "@sofelaisrael/ui";
 
 const links = [
   { href: "/", label: "Home" },

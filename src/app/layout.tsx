@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { buildThemeVars } from "@versio/core";
+import { buildThemeVars } from "@sofelaisrael/core";
 import config from "@/versio.config";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";

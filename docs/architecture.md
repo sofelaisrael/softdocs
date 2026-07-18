@@ -17,19 +17,19 @@ versio/
 ## Package Dependency Graph
 
 ```
-@versio/cli ──→ @versio/core ──→ zod, unified, remark-*, chokidar
+@sofelaisrael/cli ──→ @sofelaisrael/core ──→ zod, unified, remark-*, chokidar
                                      └──→ algoliasearch, semver
 
-@versio/ui ──→ (peer: next, react, react-dom)
-               └──→ (imports type NavSection from @versio/core)
+@sofelaisrael/ui ──→ (peer: next, react, react-dom)
+               └──→ (imports type NavSection from @sofelaisrael/core)
 
-Root app ──→ @versio/core + @versio/ui + next, react, gsap
+Root app ──→ @sofelaisrael/core + @sofelaisrael/ui + next, react, gsap
 ```
 
 ### Key Design Decisions
 
-- **`@versio/core`** is pure Node.js — no React dependency. This keeps the content pipeline testable without a browser.
-- **`@versio/ui`** imports only **types** from core (no runtime code). Components are `'use client'` for Next.js hydration.
+- **`@sofelaisrael/core`** is pure Node.js — no React dependency. This keeps the content pipeline testable without a browser.
+- **`@sofelaisrael/ui`** imports only **types** from core (no runtime code). Components are `'use client'` for Next.js hydration.
 - **Packages use TypeScript path aliases** — no build step. Source is consumed directly via `tsconfig.json` paths.
 
 ## Content Pipeline
@@ -52,7 +52,7 @@ resolveVersions()               ← Filters versions per doc's frontmatter
   ▼
 compileMDX()                    ← next-mdx-remote/rsc (server component)
   │                               Rehype chain: rehype-slug → @shikijs/rehype → rehypeCodeButton
-  │                               Components: mdxComponents from @versio/ui
+  │                               Components: mdxComponents from @sofelaisrael/ui
   ▼
 React Server Component          ← Rendered HTML with syntax highlighting
                                   + Sidebar + TOC + Version Picker + Search

@@ -5,7 +5,7 @@
 ## Project Identity
 
 - **Product name:** Versio
-- **Packages:** `@versio/core` (pure Node), `@versio/ui` (React/Next), `@versio/cli` (scaffold + dev/build)
+- **Packages:** `@sofelaisrael/core` (pure Node), `@sofelaisrael/ui` (React/Next), `@sofelaisrael/cli` (scaffold + dev/build)
 - **Config file:** `versio.config.ts` at project root
 - **CLI bins:** `versio` and `create-versio`
 
@@ -82,14 +82,14 @@ versio/
 ## Package Dependency Graph
 
 ```
-@versio/cli  →  @versio/core  →  zod, unified, remark-*, chokidar
-@versio/ui   →  (peer: next, react, react-dom)
-               →  (imports type NavSection from @versio/core)
-Root app     →  @versio/core + @versio/ui + next, react
+@sofelaisrael/cli  →  @sofelaisrael/core  →  zod, unified, remark-*, chokidar
+@sofelaisrael/ui   →  (peer: next, react, react-dom)
+               →  (imports type NavSection from @sofelaisrael/core)
+Root app     →  @sofelaisrael/core + @sofelaisrael/ui + next, react
 ```
 
-- `@versio/core` is pure Node.js — no React dependency.
-- `@versio/ui` imports only types from core, no runtime code.
+- `@sofelaisrael/core` is pure Node.js — no React dependency.
+- `@sofelaisrael/ui` imports only types from core, no runtime code.
 - Packages use TypeScript path aliases (no build step, source-only).
 
 ## Where to Look

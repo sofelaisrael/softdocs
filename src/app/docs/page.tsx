@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { buildContentIndex } from "@versio/core";
+import { buildContentIndex } from "@sofelaisrael/core";
 import path from "path";
 import config from "@/versio.config";
 

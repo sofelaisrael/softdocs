@@ -2,7 +2,7 @@
 
 Versio uses two layers of testing:
 
-- **Unit tests** (vitest) — test individual functions in `@versio/core`
+- **Unit tests** (vitest) — test individual functions in `@sofelaisrael/core`
 - **E2e tests** (Playwright) — test the running app in a real browser
 
 ## Quick Commands

@@ -1,4 +1,4 @@
-import { defineConfig } from "@versio/core";
+import { defineConfig } from "@sofelaisrael/core";
 
 export default defineConfig({
   title: "My Docs",
